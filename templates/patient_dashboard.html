@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+       
+    <title>Gestión de Turnos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary px-3">
+        <div class="container-fluid">
+            
+            <!-- Menú hamburguesa a la izquierda -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Menú colapsable -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto"> <!-- Menú alineado a la izquierda -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('dashboard') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="mostrarSeccion('section-agendados')">Turnos Agendados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="mostrarSeccion('section-seleccion-dentista')">Agendar Turno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <!-- Logo alineado a la derecha -->
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('dashboard') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Clínica Dental" width="100" class="ms-2">
+            </a>
+    
+        </div>
+    </nav>
+    
+
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        
+        <!-- Saludo -->
+        <div class="card p-4 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-primary">¡Hola, {{ user.name }}!</h4>
+                <p class="card-text">
+                    <strong>Email:</strong> {{ user.email }}<br>
+                    <strong>Teléfono:</strong> {{ user.phone }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Turnos Agendados en la Página de Inicio -->
+        <div id="section-agendados" class="mt-5 p-4 bg-light rounded shadow-sm">
+            <h2>Mis Turnos</h2>
+            {% if appointments %}
+                <ul class="list-group" id="lista-turnos">
+                    {% for t in appointments %}
+                    <li class="list-group-item">
+                        {{ t.date }} - {{ t.time }} con {{ t.dentist.name }}
+                        <a href="{{ url_for('cancelar', turno_id=t.id) }}" class="btn btn-danger btn-sm float-end">Cancelar</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted text-center">No tienes turnos agendados.</p>
+            {% endif %}
+        </div>
+
+        <!-- Selección de Dentista -->
+        <div id="section-seleccion-dentista" class="mt-5 p-4 bg-light rounded shadow-sm" style="display:none;">
+            <h2>Selecciona tu Dentista</h2>
+            <div class="row">
+                {% for dentist in dentists %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <!-- Mostrar imagen del dentista correctamente -->
+                        <img src="{{ url_for('static', filename='images/' + dentist.photo) }}" class="card-img-top" alt="{{ dentist.name }}">
+
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ dentist.name }}</h5>
+                            <button class="btn btn-primary" onclick="selectDentist('{{ dentist.id }}', '{{ dentist.name }}')">Seleccionar</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+
+        <!-- Formulario de Reservar Turno -->
+        <div id="section-reservar" class="mt-5 p-4 bg-white rounded shadow-sm" style="display:none;">
+            <h2>Reservar Turno</h2>
+            <form method="POST" action="{{ url_for('reservar') }}">
+                <input type="hidden" name="dentista_id" id="selected_dentist_id">
+                <div class="mb-3">
+                    <label for="dentista_nombre" class="form-label">Dentista Seleccionado:</label>
+                    <input type="text" id="dentista_nombre" class="form-control" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="hora" class="form-label">Hora:</label>
+                    <select name="hora" id="hora" class="form-control" required></select>
+                </div>
+                <button type="submit" class="btn btn-success">Reservar</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+<footer class="footer mt-5 bg-dark text-white text-center py-4">
+    <div class="container">
+        <div class="row">
+            <!-- Dirección -->
+            <div class="col-md-4 mb-3">
+                <h5>📍 Ubicación</h5>
+                <p>Funes 2235, Mar del Plata</p>
+            </div>
+            
+            <!-- Contacto -->
+            <div class="col-md-4 mb-3">
+                <h5>📞 Contacto</h5>
+                <p>Tel: (0223) 476-0265 | (0223) 494-6600</p>
+                <p>Email: <a href="mailto:dentistafunes@gmail.com" class="text-white">dentistafunes@gmail.com</a></p>
+            </div>
+
+            <!-- Horarios -->
+            <div class="col-md-4 mb-3">
+                <h5>🕒 Horarios</h5>
+                <p>Lunes a Viernes: 08:00 - 16:00 hs</p>
+                <p>Sábados y Domingos: Cerrado</p>
+            </div>
+        </div>
+
+        <hr class="bg-light">
+        
+        <p class="mb-0">© 2025 Clínica Dental | Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg" style="width: 25rem;">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Registro de Usuario</h2>
+            <form method="POST" action="/register">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Apellido</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" class="form-control" required>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">👁️</button>
+                    </div>
+                    <small class="text-muted">Debe contener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Celular</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="obraSocial" class="form-label">Obra Social</label>
+                    <select id="obraSocial" name="obraSocial" class="form-select" required>
+                        <option value="OSDE">OSDE</option>
+                        <option value="PAMI">PAMI</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="/" class="text-decoration-none">¿Ya tienes una cuenta? Inicia sesión</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,183 @@
+body {
+    background: linear-gradient(120deg, #f3f4f6, #ffffff);
+    font-family: 'Poppins', sans-serif;
+}
+/* 🔹 Navbar estilizada */
+.navbar {
+    background: #80c2ee !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+.navbar-nav .nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Línea separadora semi-transparente */
+    padding: 10px 0; /* Espaciado entre elementos */
+}
+.navbar .navbar-brand, .navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+
+.navbar .nav-link:hover {
+    color: #494c4d !important;
+}
+.navbar img {
+    max-height: 80px; /* Aumenta el tamaño del logo */
+    width: auto; /* Mantiene la proporción */
+    border-radius: 50%; /* Mantiene el diseño redondeado si es necesario */
+}
+
+
+.navbar-toggler {
+    border: none;
+}
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.02);
+}
+#section-reservar, #section-agendados {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1f618d;
+}
+
+.btn-danger {
+    background-color: #c0392b;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #a93226;
+}
+#hora {
+    max-height: 200px; /* Define una altura máxima */
+    overflow-y: auto;  /* Permite desplazamiento vertical */
+}
+
+#lista-turnos {
+    max-height: 250px; /* Máxima altura antes de activar el scroll */
+    overflow-y: auto;  /* Activa el desplazamiento vertical */
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+.footer {
+    background-color: #2C3E50;
+    color: white;
+    font-size: 14px;
+}
+
+.footer a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    color: #f4f4f4;
+    text-decoration: underline;
+}
+
+.footer hr {
+    width: 60%;
+    margin: 10px auto;
+    opacity: 0.3;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInAnimation 0.8s ease-in-out forwards;
+}
+/* Fondo con degradado */
+.login-body {
+    background: linear-gradient(135deg, #7e8688, #52cddd);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo de la tarjeta de inicio de sesión */
+.login-card {
+    width: 400px;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    background: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+}
+.login-logo {
+    width: 120px;
+    margin-bottom: 10px;
+}
+/* Input con iconos */
+.input-group-text {
+    background: #0984e3;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+
+.input-group input {
+    border-left: none;
+    padding: 10px;
+}
+
+/* Botón animado */
+.btn-primary {
+    background: #0984e3;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #74b9ff;
+    transform: scale(1.05);
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Animación de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
