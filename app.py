@@ -405,15 +405,26 @@ def obtener_horarios_disponibles():
     if not dentista:
         return jsonify({"error": "Dentista no encontrado"}), 404
 
+    # Convertir la fecha en un objeto de fecha
     fecha_obj = datetime.strptime(fecha, "%Y-%m-%d")
     dia_semana = fecha_obj.strftime("%A").lower()
 
+    print(f"🔍 Buscando horarios para {dentista.name} en {fecha} ({dia_semana})")
+
+    # Verificar si la disponibilidad está bien almacenada
     if not isinstance(dentista.availability, dict):
+        print("❌ La disponibilidad no está almacenada correctamente:", dentista.availability)
         return jsonify({"error": "Los horarios no están correctamente almacenados"}), 500
 
     horarios_rango = dentista.availability.get(dia_semana, [])
 
-    # Convertir rango de tiempo a lista de horas individuales
+    if not horarios_rango:
+        print(f"⚠️ No hay horarios configurados para {dia_semana}")
+        return jsonify({"horarios": []})
+
+    print(f"✅ Horarios encontrados en la BD para {dia_semana}: {horarios_rango}")
+
+    # Generar lista de horarios individuales
     horarios_disponibles = []
     for intervalo in horarios_rango:
         horarios_disponibles.extend(generar_horarios(intervalo))
@@ -425,7 +436,10 @@ def obtener_horarios_disponibles():
     # Filtrar horarios ocupados
     horarios_finales = [{"hora": hora, "disponible": hora not in horas_ocupadas} for hora in horarios_disponibles]
 
+    print(f"📆 Horarios finales disponibles: {horarios_finales}")
+
     return jsonify({"horarios": horarios_finales})
+
 @app.route("/admin")
 @login_required
 def admin():
