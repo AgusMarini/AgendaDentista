@@ -199,3 +199,32 @@ h2 {
         transform: translateY(0);
     }
 }
+
+/* Asegura que los contenedores no sean demasiado grandes */
+.container {
+    max-width: 100%;
+    padding: 10px;
+}
+
+/* Hace que las tablas y tarjetas ocupen todo el ancho en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .mis-turnos {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .cancelar-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
