@@ -8,10 +8,10 @@ with app.app_context():
         admin = User(
             email="admin@example.com",
             password=generate_password_hash("123456"),
-            name="Administrador",  # ✅ Nombre obligatorio
-            affiliate_number="00001",  # Opcional
-            phone="123456789",  # ✅ Coma agregada aquí
-            is_admin=True  # ✅ Define que este usuario es administrador
+            name="Administrador",  
+            affiliate_number="00001",  
+            phone="123456789",  
+            is_admin=True  
         )
         db.session.add(admin)
         print("Usuario administrador creado correctamente.")

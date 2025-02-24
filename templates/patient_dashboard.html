@@ -80,25 +80,27 @@
         </div>
 
         <!-- Selección de Dentista -->
-        <div id="section-seleccion-dentista" class="mt-5 p-4 bg-light rounded shadow-sm" style="display:none;">
+        <div id="section-seleccion-dentista" class="mt-5 p-4 bg-light rounded shadow-sm">
             <h2>Selecciona tu Dentista</h2>
             <div class="row">
                 {% for dentist in dentists %}
                 <div class="col-md-4">
-                    <div class="card">
-                        <!-- Mostrar imagen del dentista correctamente -->
-                        <img src="{{ url_for('static', filename='images/' + dentist.photo) }}" class="card-img-top" alt="{{ dentist.name }}">
-
-                        
+                    <div class="card text-center">
+                        <!-- 🔹 Fondo con icono en lugar de imagen -->
+                        <div class="dentist-placeholder">
+                            🦷
+                        </div>
+        
                         <div class="card-body">
                             <h5 class="card-title">{{ dentist.name }}</h5>
                             <button class="btn btn-primary" onclick="selectDentist('{{ dentist.id }}', '{{ dentist.name }}')">Seleccionar</button>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
+        
 
         <!-- Formulario de Reservar Turno -->
         <div id="section-reservar" class="mt-5 p-4 bg-white rounded shadow-sm" style="display:none;">
